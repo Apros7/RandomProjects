@@ -31,9 +31,6 @@ int init() {
     box(wnd, 0, 0);
     attroff(A_BOLD);
 
-    // init_pair(1, COLOR_WHITE, C);
-    // wbkgd(wnd, COLOR_PAIR(1));
-
     return 0;
 }
 
