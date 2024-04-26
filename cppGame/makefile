@@ -8,3 +8,6 @@ bin/main.o: src/main.cpp
 bin/game.o: src/game.cpp src/game.h
 	mkdir -p bin	
 	g++ -g -c -o bin/game.o src/game.cpp $(CFLAGS)
+
+run: bin/main
+	./bin/main
