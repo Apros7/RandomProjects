@@ -1,3 +1,6 @@
+// Inspired from https://github.com/fundamelon/terminal-game-tutorial/tree/master
+// All credits should go to them
+
 #include "game.h"
 
 int main(int argv, char** argc) {
