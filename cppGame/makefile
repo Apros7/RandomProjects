@@ -15,6 +15,5 @@ bin/ObjectField.o: src/ObjectField.cpp src/ObjectField.h
 	mkdir -p bin	
 	g++ -g -c -o bin/ObjectField.o src/ObjectField.cpp $(CFLAGS)
 
-
 run: bin/main
 	./bin/main

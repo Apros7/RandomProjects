@@ -1,3 +1,4 @@
+#include <cstdint>
 #ifndef SPACEOBJECT_H
 #define SPACEOBJECT_H
 
