@@ -71,19 +71,23 @@ int init() {
 
 
 void run() {
+    
+    int tick = 0;
+   
+    // initialize player
+    player.disp_char = 'o';
+    player.pos = {10, 10};
+    player.bounds = { { static_cast<int_fast8_t>(player.pos.x - 1), player.pos.y }, { 3, 2 } }; // player is 3 wide, 2 tall
+    player.energy = 100;
 
-    int tick;
-
-    // initialize player as before
-
-    // constrain object fields to game area
     asteroids.setBounds(game_area);
     stars.setBounds(game_area);
 
     int in_char = 0;
     bool exit_requested = false;
     bool game_over = false;
-
+   
+    // draw frame around whole screen
     wattron(main_wnd, A_BOLD);
     box(main_wnd, 0, 0);
     wattroff(main_wnd, A_BOLD);
@@ -95,6 +99,63 @@ void run() {
     // initial draw
     wrefresh(main_wnd);
     wrefresh(game_wnd);
+
+
+    const std::vector<std::string> story_text = { 
+        "Just another Monday, and you're on your way to work...", 
+        "When suddenly...",
+        "You realize you left the oven on!", 
+        "Take a shortcut through that asteroid field!",
+        "Get back to the house before your planet explodes!"
+    };
+
+
+    mvwprintw(main_wnd, 22, 57, "press SPACE to skip..."); 
+
+    // story mode demo
+    tick = 0;
+    size_t story_part = 0;
+    size_t story_position = 0;
+
+    while(1) {
+        werase(game_wnd);
+        in_char = wgetch(main_wnd);
+
+        if(tick % 50 == 0)
+            stars.update();
+
+        // draw starry background
+        for(auto s : stars.getData())
+            mvwaddch(game_wnd, s.getPos().y, s.getPos().x, '.');  
+
+        if(story_position < story_text[story_part].length()) {
+            wattron(main_wnd, A_BOLD);
+            mvwaddch(main_wnd, 20, 5 + story_position, story_text[story_part][story_position]);
+            wattroff(main_wnd, A_BOLD);
+            story_position++;
+        }
+
+        if(in_char == ' ') {
+            story_part++;
+            story_position = 0;
+            mvwhline(main_wnd, 20, 1, ' ', screen_area.width() - 2);
+        }
+
+        else if(in_char == 'q') {
+            exit_requested = true;
+            break;
+        }
+
+        if(story_part >= story_text.size()) break;
+        
+        wrefresh(game_wnd);
+
+        tick++;
+        usleep(10000); // 1 ms
+    }
+
+    // white-out
+    mvwhline(main_wnd, 22, 57, ' ', 22);
 
     tick = 0;
     while(1) {
@@ -125,14 +186,14 @@ void run() {
             case KEY_LEFT:
             case 'a':
             case 'j':
-                if(player.pos.x > game_area.left() + 1)
-                    player.pos.x -= 1;
+                if(player.pos.x > game_area.left() + 2)
+                    player.pos.x -= 2;
                 break;
             case KEY_RIGHT:
             case 'd':
             case 'l':
-                if(player.pos.x < game_area.right() - 2)
-                    player.pos.x += 1;
+                if(player.pos.x < game_area.right() - 3)
+                    player.pos.x += 2;
                 break;
             default:
                 break;
@@ -142,6 +203,26 @@ void run() {
 
         for(auto s: stars.getData())
             mvwaddch(game_wnd, s.getPos().y, s.getPos().x, '.');
+
+        player.bounds = { { static_cast<int_fast8_t>(player.pos.x - 1), player.pos.y }, { 3, 1 } };
+
+        for(size_t i = 0; i < asteroids.getData().size(); i++) {
+            if(player.bounds.contains(asteroids.getData().at(i).getPos())) {
+                asteroids.erase(i);
+            }
+        }
+
+        wattron(game_wnd, A_ALTCHARSET);
+        mvwaddch(game_wnd, player.pos.y, player.pos.x - 1, ACS_LARROW);
+        mvwaddch(game_wnd, player.pos.y, player.pos.x + 1, ACS_RARROW);
+
+        if((tick % 10) / 3) {
+            wattron(game_wnd, COLOR_PAIR(tick % 2 ? 3 : 4));
+            mvwaddch(game_wnd, player.pos.y + 1, player.pos.x, ACS_UARROW);
+            wattroff(game_wnd, COLOR_PAIR(tick % 2 ? 3 : 4));
+        }
+
+        wattroff(game_wnd, A_ALTCHARSET);
 
         if(tick > 100 && tick % 20 == 0)
             asteroids.update();
