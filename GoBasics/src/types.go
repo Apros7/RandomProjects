@@ -20,3 +20,8 @@ func array() {
 	var intArrLonger []int32 = make([]int32, 3, 8) // 3 items to begin with, but allocate memory in heap for 8 items = 32 bytes
 	fmt.Println(intArrLonger)
 }
+
+func maps() {
+	var strIntMap map[string]uint32 = make(map[string]uint32)
+	fmt.Println(strIntMap)
+}
