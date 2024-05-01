@@ -24,4 +24,11 @@ func array() {
 func maps() {
 	var strIntMap map[string]uint32 = make(map[string]uint32)
 	fmt.Println(strIntMap)
+	strIntMap["Lucas"] = 21
+	strIntMap["Zilas"] = 17
+	fmt.Println(strIntMap)
+	delete(strIntMap, "Lucas")
+	fmt.Println(strIntMap)
+	var LucasValue, LucasOK = strIntMap["Lucas"]
+	fmt.Println(LucasValue, LucasOK) // Will return default value of value type here uint32 default value = 0
 }
