@@ -1,27 +1,38 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 func main() {
-	var intNum uint16 = 32767
-	var floatNum float32 = 12345678.9
-	fmt.Println(intNum)
-	fmt.Println(floatNum)
-
-	var intNum2 uint16 = 10000
-	fmt.Println(intNum + intNum2)
-
-	var myString string = "Hello" + " " + "World"
-	fmt.Println(myString)
-
-	const myRune rune = 'a'
-	fmt.Println(myRune)
-
-	int1, int2 := 2, 2
-	printMe(int1 + int2)
-
+	const welcomeStatement string = "Welcome to the division program"
+	var div1 int
+	var div2 int
+	fmt.Println(welcomeStatement)
+	fmt.Println("Please input the nominator")
+	fmt.Scanln(&div1)
+	fmt.Println("Please input the denominator")
+	fmt.Scanln(&div2)
+	var result, remainder, err = intDiv(div1, div2)
+	switch {
+	case err != nil:
+		fmt.Printf(err.Error())
+	case remainder == 0:
+		fmt.Printf("The result is a complete division with value %v", result)
+	default:
+		fmt.Printf("The result is a division with value %v and remainder %v", result, remainder)
+	}
+	fmt.Printf("\n")
 }
 
-func printMe(param int) {
-	fmt.Println(param)
+func intDiv(nom int, denom int) (int, int, error) {
+	var err error
+	if denom == 0 {
+		err = errors.New("Cannot divide by Zero")
+		return 0, 0, err
+	}
+	var division int = nom / denom
+	var remainder int = nom % denom
+	return division, remainder, err
 }
