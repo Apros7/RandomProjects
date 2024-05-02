@@ -1,7 +1,8 @@
 package main
 
 func main() {
-	loops()
+	strings()
+	//loops()
 	// maps()
 	// array()
 	// intDivProgram()
