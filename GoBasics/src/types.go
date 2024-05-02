@@ -32,3 +32,19 @@ func maps() {
 	var LucasValue, LucasOK = strIntMap["Lucas"]
 	fmt.Println(LucasValue, LucasOK) // Will return default value of value type here uint32 default value = 0
 }
+
+func loops() {
+	var simpleArray []int32 = []int32{1, 2, 3, 4}
+	for i, v := range simpleArray {
+		fmt.Println(i, v)
+	}
+
+	var simpleMap map[string]uint32 = map[string]uint32{"Lucas": 1, "Zilas": 3, "Sophia": 10, "Claus": 7}
+	for k, v := range simpleMap {
+		fmt.Println(k, v)
+	}
+
+	for i := 0; i < 10; i++ {
+		fmt.Println(i)
+	}
+}
