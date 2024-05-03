@@ -1,7 +1,8 @@
 package main
 
 func main() {
-	concurrency()
+	channels()
+	// concurrency()
 	// structs()
 	// strings()
 	//loops()
