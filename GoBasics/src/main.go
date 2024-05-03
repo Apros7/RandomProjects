@@ -1,7 +1,8 @@
 package main
 
 func main() {
-	structs()
+	concurrency()
+	// structs()
 	// strings()
 	//loops()
 	// maps()
