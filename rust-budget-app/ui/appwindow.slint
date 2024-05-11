@@ -1,17 +1,113 @@
 import { Button, VerticalBox } from "std-widgets.slint";
+import "./NotoSans-Regular.ttf";
 
-export component AppWindow inherits Window {
-    in-out property<int> counter: 42;
-    callback request-increase-value();
-    VerticalBox {
-        Text {
-            text: "Counter: \{root.counter}";
-        }
-        Button {
-            text: "Increase value";
-            clicked => {
-                root.request-increase-value();
+
+component row inherits Text {
+    Rectangle {
+        width: 120%;
+        height: 50px;
+        border-width: 3px;
+        border-radius: 2px;
+        border-color: #7c7c7c;
+
+        HorizontalLayout {
+            padding-left: 15px;
+            padding-right: 15px;
+            alignment: space-between;
+        
+            Text {
+                y: 11px;
+                text: "MMMM - YYYY";
+                font-size: 18px;
+            }
+            Rectangle {
+                width: 5px;
+                border-width: 2px;
+                border-color: #7c7c7c;
+            }
+            Text {
+                y: 11px;
+                text: "xxxx dkk";
+                font-size: 18px;
+                color: green;
             }
         }
+    }
+}
+
+component back-button inherits Rectangle {
+    y: 10px;
+    x: 10px;
+    width: 100px;
+    height: 40px;
+    background: #fff2d7;
+
+    Button {
+        text: "< Back";
+        padding: 0px;
+        preferred-width: 100%;
+        preferred-height: 100%;
+    }
+}
+
+export component AppWindow inherits Window {
+    background: #fff2d7;
+    min-width: 400px;
+    min-height: 500px;
+    default-font-family: "Noto Sans";
+
+    HorizontalLayout {
+        alignment: center;
+        Text { 
+            text: "Budget App"; 
+            y: 80px;
+            font-size: 50px;
+        }
+    }
+    HorizontalLayout {
+        alignment: center;
+        Rectangle {
+            y: 170px;
+            width: 120px;
+            height: 40px;
+            border-width: 2px;
+            border-radius: 10px;
+            border-color: #141414;
+
+            Button {
+                text: "Upload CSV file";
+                padding: 0px;
+                preferred-width: 100%;
+                preferred-height: 100%;
+                clicked => { 
+                    self.text = "Clicked"; 
+                }
+            }
+
+        }
+    }
+    my_budget_button := Rectangle {
+        y: 10px;
+        x: parent.width - 110px;
+        width: 100px;
+        height: 40px;
+        border-width: 2px;
+        border-radius: 10px;
+        border-color: #141414;
+
+        Button {
+            text: "My budget";
+            padding: 0px;
+            preferred-width: 100%;
+            preferred-height: 100%;
+        }
+    }
+    back_button := back-button {
+
+    }
+
+
+    row {
+
     }
 }
