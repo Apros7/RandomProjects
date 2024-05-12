@@ -4,11 +4,11 @@ import "./NotoSans-Regular.ttf";
 
 component row inherits Text {
     Rectangle {
-        width: 120%;
+        width: 140%;
         height: 50px;
         border-width: 3px;
-        border-radius: 2px;
-        border-color: #7c7c7c;
+        border-radius: 5px;
+        border-color: #FFBB70;
 
         HorizontalLayout {
             padding-left: 15px;
@@ -21,9 +21,10 @@ component row inherits Text {
                 font-size: 18px;
             }
             Rectangle {
-                width: 5px;
-                border-width: 2px;
-                border-color: #7c7c7c;
+                y: 10px;
+                width: 3px;
+                height: 30px;
+                background: #FFBB70;
             }
             Text {
                 y: 11px;
@@ -35,22 +36,27 @@ component row inherits Text {
     }
 }
 
-component back-button inherits Rectangle {
-    y: 10px;
-    x: 10px;
-    width: 100px;
-    height: 40px;
-    background: #fff2d7;
+// component back-button inherits Rectangle {
+//     y: 10px;
+//     x: 10px;
+//     width: 100px;
+//     height: 40px;
+//     background: #fff2d7;
 
-    Button {
-        text: "< Back";
-        padding: 0px;
-        preferred-width: 100%;
-        preferred-height: 100%;
-    }
-}
+//     Button {
+//         text: "< Back";
+//         padding: 0px;
+//         preferred-width: 100%;
+//         preferred-height: 100%;
+//     }
+// }
 
 export component AppWindow inherits Window {
+    in-out property <string> month: "February";
+    in-out property <int> day: 11;
+
+    callback request-update-date();
+
     background: #fff2d7;
     min-width: 400px;
     min-height: 500px;
@@ -68,11 +74,12 @@ export component AppWindow inherits Window {
         alignment: center;
         Rectangle {
             y: 170px;
-            width: 120px;
+            width: 130px;
             height: 40px;
-            border-width: 2px;
-            border-radius: 10px;
-            border-color: #141414;
+            background: #D8AE7E;
+            // border-width: px;
+            border-radius: 5px;
+            border-color: #F8C794;
 
             Button {
                 text: "Upload CSV file";
@@ -81,9 +88,18 @@ export component AppWindow inherits Window {
                 preferred-height: 100%;
                 clicked => { 
                     self.text = "Clicked"; 
+                    root.request-update-date();
+                    self.text = "Yo";
                 }
             }
-
+        }
+    }
+    HorizontalLayout {
+        alignment: center;
+        Text {
+            text: "Last updated: \{root.day} of \{root.month}";
+            y: 210px;
+            font-size: 10px;
         }
     }
     my_budget_button := Rectangle {
@@ -91,9 +107,8 @@ export component AppWindow inherits Window {
         x: parent.width - 110px;
         width: 100px;
         height: 40px;
-        border-width: 2px;
-        border-radius: 10px;
-        border-color: #141414;
+        background: #D8AE7E;
+        border-radius: 5px;
 
         Button {
             text: "My budget";
@@ -102,12 +117,12 @@ export component AppWindow inherits Window {
             preferred-height: 100%;
         }
     }
-    back_button := back-button {
+    // back_button := back-button {
 
-    }
+    // }
 
 
     row {
-
+        y: 250px;
     }
 }
