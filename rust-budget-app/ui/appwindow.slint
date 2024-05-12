@@ -67,6 +67,7 @@ component row inherits Text {
 export component AppWindow inherits Window {
     in-out property <string> month: "February";
     in-out property <int> day: 11;
+    out property <int> name;
 
     callback request-update-date();
     callback request-upload-file();
@@ -136,7 +137,6 @@ export component AppWindow inherits Window {
 
     // }
 
-
     row {
         y: 250px;
     }
@@ -144,6 +144,6 @@ export component AppWindow inherits Window {
         y: 250px + 47px;
     }
     row {
-        y: 250px + 2*47px;
+        y: 250px + 2 * 47px;
     }
 }
