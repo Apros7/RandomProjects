@@ -10,6 +10,19 @@ component row inherits Text {
         border-radius: 5px;
         border-color: #FFBB70;
 
+        Button {
+            width: 100%;
+            height: 100%;
+        }
+
+        Rectangle {
+            width: 100%;
+            height: 100%;
+            border-width: 3px;
+            border-radius: 5px;
+            border-color: #FFBB70;
+        }
+
         HorizontalLayout {
             padding-left: 15px;
             padding-right: 15px;
@@ -126,5 +139,11 @@ export component AppWindow inherits Window {
 
     row {
         y: 250px;
+    }
+    row {
+        y: 250px + 47px;
+    }
+    row {
+        y: 250px + 2*47px;
     }
 }
