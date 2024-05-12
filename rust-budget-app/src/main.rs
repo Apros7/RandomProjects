@@ -1,16 +1,10 @@
 slint::include_modules!();
 use chrono::Datelike;
+// use native_dialog::{FileDialog, MessageDialog, MessageType};
+use native_dialog::{FileDialog};
 
 fn main() -> Result<(), slint::PlatformError> {
     let ui = AppWindow::new()?;
-
-    // ui.on_request_increase_value({
-    //     let ui_handle = ui.as_weak();
-    //     move || {
-    //         let ui = ui_handle.unwrap();
-    //         ui.set_counter(ui.get_counter() + 1);
-    //     }
-    // });
 
     ui.on_request_update_date({
         let ui_handle = ui.as_weak(); 
@@ -32,8 +26,24 @@ fn main() -> Result<(), slint::PlatformError> {
                 12 => String::from("December"),
                 _ => String::from("Unknown"),
             }.into());
+            let current_day = chrono::Local::now().day();
+            ui.set_day(current_day.try_into().unwrap());
         }
+    });
 
+    ui.on_request_upload_file({
+        let ui_handle = ui.as_weak(); 
+        move || {
+            let ui = ui_handle.unwrap();
+            let path = FileDialog::new()
+                .set_location("~/Desktop")
+                .add_filter("CSV csv", &["csv"])
+                .show_open_single_file()
+                .unwrap();
+            ui.set_month(String::from(path.expect("REASON").to_string_lossy().into_owned()).into())
+        }
+    });
+        
 
         // use native_dialog::{FileDialog, MessageDialog, MessageType};
         // let path = FileDialog::new()
@@ -59,7 +69,6 @@ fn main() -> Result<(), slint::PlatformError> {
         //     // do_something(path);
         // };
 
-    });
 
     ui.run()    
 }

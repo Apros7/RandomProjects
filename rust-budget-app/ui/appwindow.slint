@@ -56,6 +56,7 @@ export component AppWindow inherits Window {
     in-out property <int> day: 11;
 
     callback request-update-date();
+    callback request-upload-file();
 
     background: #fff2d7;
     min-width: 400px;
@@ -89,6 +90,7 @@ export component AppWindow inherits Window {
                 clicked => { 
                     self.text = "Clicked"; 
                     root.request-update-date();
+                    root.request-upload-file();
                     self.text = "Yo";
                 }
             }
