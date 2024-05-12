@@ -2,6 +2,8 @@ slint::include_modules!();
 use chrono::Datelike;
 // use native_dialog::{FileDialog, MessageDialog, MessageType};
 use native_dialog::{FileDialog};
+use std::fs;
+use std::path::PathBuf;
 
 fn main() -> Result<(), slint::PlatformError> {
     let ui = AppWindow::new()?;
@@ -34,13 +36,27 @@ fn main() -> Result<(), slint::PlatformError> {
     ui.on_request_upload_file({
         let ui_handle = ui.as_weak(); 
         move || {
+            let mut message = String::new();
             let ui = ui_handle.unwrap();
             let path = FileDialog::new()
                 .set_location("~/Desktop")
                 .add_filter("CSV csv", &["csv"])
                 .show_open_single_file()
                 .unwrap();
-            ui.set_month(String::from(path.expect("REASON").to_string_lossy().into_owned()).into())
+            if let Some(path) = path {
+                let file_name = path.file_name().unwrap().to_string_lossy().into_owned();
+                let new_path = PathBuf::from("./data").join(&file_name);
+    
+                // Attempt to copy the file to the data directory
+                if let Err(e) = fs::copy(&path, &new_path) {
+                    message = e.to_string()
+                } else {
+                    message = String::from("Success")
+                }
+            } else {
+                message = String::from("No file selected");
+            }
+            ui.set_month(String::from(message).into())
         }
     });
         
