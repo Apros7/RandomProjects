@@ -10,22 +10,21 @@ type bikeRide struct { // structs are like types in typescript
 	avgSpeed float32
 }
 
-type swim struct {
-	hundredMeters float32
-	hours         float32
-	avgSpeed      float32
-}
+// type swim struct {
+// 	hundredMeters float32
+// 	hours         float32
+// 	avgSpeed      float32
+// }
 
 func (r *bikeRide) getAvgSpeed() float32 {
 	r.avgSpeed = r.dist / r.hours
 	return r.dist / r.hours
 }
 
-func (r *swim) getAvgSpeed() float32 {
-	r.avgSpeed = r.hundredMeters / r.hours
-	return r.hundredMeters / r.hours
-
-}
+// func (r *swim) getAvgSpeed() float32 {
+// 	r.avgSpeed = r.hundredMeters / r.hours
+// 	return r.hundredMeters / r.hours
+// }
 
 type trip interface {
 	getAvgSpeed() float32

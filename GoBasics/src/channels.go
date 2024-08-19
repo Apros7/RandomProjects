@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"sync"
 	"time"
 )
 
@@ -11,8 +10,6 @@ import (
 const PROBLEMS_SOLVED_TO_WIN float32 = 5
 
 var PARTICIPANTS = []string{"L", "A", "B", "Z", "X", "P"}
-
-var wg2 = sync.WaitGroup{}
 
 func channels() {
 	var problemsSolvedChannel = make(chan string, len(PARTICIPANTS))

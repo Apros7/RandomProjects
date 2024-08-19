@@ -17,7 +17,7 @@ func intDivProgram() {
 	var result, remainder, err = intDiv(div1, div2)
 	switch {
 	case err != nil:
-		fmt.Printf(err.Error())
+		fmt.Printf("Error: %v", err.Error())
 	case remainder == 0:
 		fmt.Printf("The result is a complete division with value %v", result)
 	default:
@@ -29,7 +29,7 @@ func intDivProgram() {
 func intDiv(nom int, denom int) (int, int, error) {
 	var err error
 	if denom == 0 {
-		err = errors.New("Cannot divide by Zero")
+		err = errors.New("cannot divide by Zero")
 		return 0, 0, err
 	}
 	var division int = nom / denom
