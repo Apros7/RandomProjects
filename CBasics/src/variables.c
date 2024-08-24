@@ -9,4 +9,6 @@ int main() {
     #ifdef DEBUG
     printf("\nWE ARE IN DEBUG MODE %s:%d", __FILE__, __LINE__);
     #endif
+
+    return 0; 
 }
