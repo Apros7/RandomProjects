@@ -3,8 +3,15 @@
 
 #define MAX_IDS 32
 
+int add(int x, int y) {
+   int z = x+y;
+   return z;
+}
+
 int main() {
    int ids[MAX_IDS] = {0};
+   int other_int = add(1,2);
+   printf("%d\n", other_int);
 
    for (int i = 0; i < MAX_IDS; i++) {
     ids[i] = i;
