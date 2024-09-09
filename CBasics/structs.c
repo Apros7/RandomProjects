@@ -21,8 +21,18 @@ union test_u {
     char c;
 };
 
+void init_employee(struct employee *e) {
+    static int numEmployees = 0;
+    numEmployees++;
+
+    e-> id = numEmployees;
+    e-> income = 0.0;
+    e-> isManager = false;
+    return;
+}
+
 int main() {
-    int n = 100;
+    int n = 10;
     struct employee *employees = malloc(sizeof(struct employee) * n);
     if (employees == NULL) {
         printf("Memory allocation went bad!");
@@ -34,8 +44,8 @@ int main() {
     int i = 0;
 
     for (i = 0; i < n; i++) {
-        employees[i].income = 100.0;
-        employees[i].isManager = false;
+        init_employee(&employees[i]);
+        printf("Employee initialized, their ID is %d\n", employees[i].id);
     }
 
     printf("%f\n%d\n%s\n", employees[10].income, employees[10].isManager, employees[10].firstName);
