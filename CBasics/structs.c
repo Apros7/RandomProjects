@@ -24,6 +24,10 @@ union test_u {
 int main() {
     int n = 100;
     struct employee *employees = malloc(sizeof(struct employee) * n);
+    if (employees == NULL) {
+        printf("Memory allocation went bad!");
+        return -1;
+    }
 
     printf("size of employee: %lu\n", sizeof(struct employee));
         
