@@ -12,6 +12,11 @@ struct employee {
     bool isManager;
 };
 
+union test_u {
+    int x;
+    char c;
+};
+
 int main() {
     struct employee employees[MAX_EMPLOYEES];
 
